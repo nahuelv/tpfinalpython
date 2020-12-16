@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Grayscale - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+    </head>
+    <body >
+        <!-- Navigation-->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">PyMov</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            
+          </div>
+        </nav>
+        <!-- {{peliculas}} -->
+        <br> <br> <br> <br> <br>
+            <div class="container">
+                
+              <div class="row">
+                {% for p in peliculas %}
+               <a onclick="myfunction('{{p.id}}')" href="#" class="card-link">
+                <div class="col-sm-4">
+                  
+                  <div class="card" style="width: 20rem; margin-bottom: 20px">
+                      
+                      <img  src='https://image.tmdb.org/t/p/w200/{{p.poster_path}}' alt="Card image cap">
+                      
+                    <div class="card-body">
+                      
+                      <h5 class="card-title ">{{  p.title }}</h5>
+                      <p class="card-text card-link">{{p.release_date}} </p>
+                        <!-- <a onclick="myfunction('{{p.id}}')" href="#" class="card-link">+ Info</a> -->
+                      
+                      <!-- button  onclick="myfunction('{{p.id}}','{{p.title}}','{{p.overview}}')" class="card-img-top" type="button" class="btn btn-primary"> Ver</button> -->
+                      <!-- <button   class="card-img-top" type="button" class="btn btn-primary"> Ver</button> -->
+                      
+                      
+                        <!-- <button name="" id=""  onclick="myfunction('{{p.id}}')"  type="button" class="btn btn-primary card-link">Añadir a coleccion</button> -->
+                       
+                     
+                      
+                    </div>
+                  </div>
+                </div>
+              </a>
+                {% endfor %}
+              </div>
+            </div>
+       
+
+        <!-- MODAL -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" name="titulo" id="titulo"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <span id="idPelicula" hidden></span>           
+                          
+        
+
+              <div class="modal-body">
+                  <span id="descripcion"></h3>
+                  
+      
+              </div>
+
+              <div style="border-top: 1px dashed #e7eaec;color: #ffffff;
+               background-color: #ffffff; 
+               height: 1px;
+               margin: 20px 0"></div>
+
+
+                <div class="input-group mb-3">
+                  <legend style="text-align: center;">Categoria</legend>
+                <select class="form-control" aria-label="Default select example" id="inputCategorias">
+                  <option selected value=-1>Selecionar una categoria</option>
+                  {%for ca in categorias%}
+                  <option value="{{ca[0]}}">{{ca[1]}}</option>   
+                  {%endfor%}
+                  
+                </select> 
+              </div>
+              
+              <div style="border-top: 1px dashed #e7eaec;color: #ffffff;
+               background-color: #ffffff; 
+               height: 1px;
+               margin: 20px 0"></div>
+
+              <div class="container">
+                <div class="d-flex justify-content-center">
+                  <div><fieldset class="rating">
+                    <legend style="text-align: center;">¡Calificala!</legend>
+                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                </fieldset>
+              </div>
+               </div>
+              
+                  
+               
+              </div>       
+             
+              <div class="modal-footer">
+                <button id="btnCol" type="button" class="btn btn-primary" >Añadir a coleccion</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        
+
+
+
+
+
+
+
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Vila Nahuel 2020</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static',filename='js/scripts.js') }}"></script>
+
+         
+<script>
+// $(document).ready(function (e) {
+//   $('#exampleModalCenter').on('show.bs.modal', function(e) {    
+//     //  var id = $(e.relatedTarget).data().id;
+//     //  var desc = $(e.relatedTarget).data().desc;
+//     console.log(e)
+
+//      document.getElementById("titulo").innerHTML = id;
+//      document.getElementById("descripcion").innerHTML = desc;
+//       // $(e.currentTarget).find('#lista').val(id);
+//   });
+// });
+
+
+
+//añadir a coleccion
+
+
+$(function() {
+    $('#btnCol').click(function(id) {
+      var idPelicula = document.getElementById("idPelicula").innerText
+      var titulo = document.getElementById("titulo").innerText
+      var rating = $('input:radio[name=rating]:checked').val()
+      var categoria = $("#inputCategorias").val()
+      if(categoria == -1 ){
+        alert("Debe seleccionar una categoria")
+      }else
+      if(jQuery('input:radio[name=rating]:checked').val() == null){
+        alert("Debe seleccionar un puntaje")
+      }else{
+        $.ajax({
+            url: '/coleccion',
+            data: JSON.stringify({'titulo':titulo,'idPelicula':idPelicula,'rating':rating,'categoria':categoria}), //{idPelicula:idPelicula,titulo:titulo},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'POST',
+            success: function(response) {
+              if(response == "1"){
+                alert("Pelicula añadida a la coleccion")
+                $('#exampleModalCenter').modal('hide');
+              }else{
+                alert("Solo los usuarios registrados pueden agregar peliculas a la coleccion")
+              }
+              
+              
+            },
+            error: function(error) {
+               console.log(error)
+            }
+
+        });
+      }
+      
+    });
+});
+
+
+
+
+
+
+
+
+function myfunction (idPelicula){
+  
+jQuery('input:radio[name=rating]').prop('checked',false)
+
+fetch("https://api.themoviedb.org/3/movie/"+idPelicula+"?api_key=6427e11274426be9030b97aab51ef6f8&language=en-US")
+.then(response => response.json())
+.then(function(data){
+  
+ 
+    document.getElementById("titulo").innerHTML = data.title;
+    document.getElementById("descripcion").innerHTML = data.overview;
+    document.getElementById("idPelicula").innerHTML = idPelicula;
+    
+    $('#exampleModalCenter').modal('show');
+  
+  // if(opt == 2){  //  2 - Añadir a la coleccion
+  //   console.log("id pelicula:" + idPelicula)
+  //   $.ajax({
+  //           url: '/coleccion',
+  //           data: idPelicula,
+  //           type: 'POST',
+  //           success: function(response) {
+  //             alert(response)
+             
+  //           },
+  //           error: function(error) {
+  //              console.log(error)
+  //           }
+
+  //       });
+
+  // }
+ 
+})
+
+
+
+
+      
+
+     
+     
+      // $(e.currentTarget).find('#lista').val(id);
+
+  
+}
+
+
+
+
+
+</script>
+</html>

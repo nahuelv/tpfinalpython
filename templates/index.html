@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Grayscale - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">PyMov</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                  
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Buscar</a></li>
+                        {% if user %}                         
+                       
+
+                          <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""  data-toggle="modal" data-target="#menuModal">{{user}}</a></li>
+                           
+                          {%else%}
+                          <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""  data-toggle="modal" data-target="#loginModal">LogIn</a></li>
+                          <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""  data-toggle="modal" data-target="#registerModal">Register</a></li>
+
+
+                        {% endif%}
+                        
+                        
+                        <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li> -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead" id="top">
+            <div class="container d-flex h-100 align-items-center">
+                <div class="mx-auto text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">PYTHON MOVIE</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Una web para buscar peliculas</h2>
+                    <a class="btn btn-primary js-scroll-trigger" href="#about">Comenzar</a>
+                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+                        Registro
+                      </button> -->
+                </div>
+            </div>
+        </header>
+        <!-- About-->
+    
+
+        <section class="about-section text-center" id="about">
+            <div class="container">
+
+                    <h1>Ingrese el nombre de la pelicula</h1>
+                    <form class="form-signin">
+                    <label for="inputName" class="sr-only">Nombre</label>
+                    <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Nombre" required autofocus>
+                    <br>
+                    <a id=btnFind class="btn btn-primary js-scroll-trigger" href="#about">Buscar</a>
+                  </form>
+                  <br>
+
+            </div>
+        </section>
+
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Vila Nahuel 2020</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static',filename='js/scripts.js') }}"></script>
+
+    </body>
+
+<!-- MODAL Registro -->
+
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="form-register">
+                <div class="input-group mb-3">
+                    <input name="username" id="username" type="text" class="form-control" placeholder="usuario"
+                    aria-describedby="basic-addon1">
+
+                </div>
+                <div class="input-group mb-3">
+                    <input name="pass" id="pass" type="password" class="form-control" placeholder="contraseña"
+                    aria-describedby="basic-addon2">
+                </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          
+          <button id="btnSignUp" type="button" class="btn btn-primary">Registrar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MENU MODAL -->
+
+
+  <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Menú de usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="display: grid;">
+           
+          <button onclick="window.location.href='/userHome'" type="button" class="btn btn-primary" >
+            Ver perfil
+          </button>
+          
+          
+          <button id="btnCerrarSesion"type="button" class="btn btn-secondary" >
+            Cerrar Sesión
+          </button>
+
+        </div>
+   
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- MODAL LogIn -->
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="form-register">
+                <div class="input-group mb-3">
+                    <input name="usuario" id="usuario" type="text" class="form-control" placeholder="usuario"
+                    aria-describedby="basic-addon1">
+
+                </div>
+                <div class="input-group mb-3">
+                    <input name="contraseña" id="contraseña" type="password" class="form-control" placeholder="contraseña"
+                    aria-describedby="basic-addon2">
+                </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          
+          <button id="btnLogIn" type="button" class="btn btn-primary">LogIn</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+//Regitro
+
+$(function() {
+    $('#btnSignUp').click(function(e) {
+
+      if ($("#pass").val()=="" || $("#username").val()==""){
+        alert("Todos los campos son obligatorios")
+      }else{
+
+        $.ajax({
+            url: '/registro',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+              
+              if(response == "1"){
+                alert("El usuario ya se encuentra registrado")
+              }else{
+                alert("Usuario creado con exito")
+                $('#registerModal').modal('hide');
+              }
+               
+            },
+            error: function(error) {
+               console.log(error)
+            }
+
+        });
+      }
+    });
+});
+
+//LogIn
+$(function() {
+    $('#btnLogIn').click(function() {
+      if ($("#contraseña").val()=="" || $("#usuario").val()==""){
+        alert("Todos los campos son obligatorios")
+      }else{
+
+      
+        $.ajax({
+            url: '/validarRegistro',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+              if (response == ""){
+                alert("Usuario y/o Contraseña incorrecto")
+              }else{
+                location.reload();
+              }
+              
+              // 
+              
+              // $('#loginModal').modal('hide'); 
+            },
+            error: function(error) {
+               console.log(error)
+            }
+
+        });
+      }
+    });
+});
+
+//cerrar sesion
+
+$(function() {
+    $('#btnCerrarSesion').click(function() {
+
+        $.ajax({
+            url: '/cerrarSesion',            
+            type: 'POST',
+            success: function(response) {
+              location.reload();
+            },
+            error: function(error) {
+               console.log(error)
+            }
+
+        });
+    });
+});
+
+
+
+//Listado
+
+    $(function(event) {
+        
+    $('#btnFind').click(function(event) {
+        if ($('#inputName').val() == ''){
+            event.preventDefault()
+            alert('Ingrese un nombre')
+        }else{
+
+        
+
+        $.ajax({
+            url: '/listado',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+               window.location.href='/lista'
+            },
+            error: function(error) {
+                window.location.href='/lista'
+            }
+
+        })
+        }   ;
+    });
+});
+
+
+
+
+</script>
+</html>

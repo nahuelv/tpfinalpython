@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, Bootstrap Table!</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
+  </head>
+  <body>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.1/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger"  href="/">PyMov</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+    
+    </div>
+</nav>
+
+<br><br><br>
+
+<table class="table table-bordered table-striped" ref="mainTable" id="table" 
+data-toggle="table"
+
+data-filter-control="true" 
+data-show-export="true"
+data-click-to-select="true"
+data-toolbar="#toolbar"
+
+>
+<thead>
+<tr>
+<th data-field="state" data-checkbox="true"></th>
+<th data-field="id"  data-sortable="true">#</th>
+<th data-field="Pelicula" data-filter-control="input" data-sortable="true">Pelicula</th>
+<th data-field="Categoria" data-filter-control="select" data-sortable="true">Categoria</th>
+<th data-field="Rating" data-filter-control="select" data-sortable="true">Rating</th>
+<th data-field="Fecha" data-sortable="true">Fecha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    {% for c in coleccion %}
+<td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+<td>{{c[0]}}</td>
+<td>{{c[1]}}</td>
+<td>{{c[4]}}</td>
+<td>{{c[2]}}</td>
+<td>{{c[3]}}</td>
+</tr>
+{% endfor %}  
+
+
+</tbody>
+</table>
+
+
+
+
+
+<script>
+    $('#mainTable').bootstrapTable({
+});
+//OBTENER CATEGORIAS
+
+// $(document).ready(function(){
+//    $.ajax({
+//       type: "GET",
+//       url:'/listarCategorias',
+//       success: function(data) {
+//           console.log(data)
+//       },
+//       error: function(error){
+//       console.log("Here is the error res: " + JSON.stringify(error));
+//       }
+//   });
+// });
+
+
+</script>
+
+
+
+
+
+  </body>
+</html>
