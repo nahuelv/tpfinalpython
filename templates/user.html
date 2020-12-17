@@ -24,11 +24,26 @@
             Menu
             <i class="fas fa-bars"></i>
         </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+                  
+            <ul class="navbar-nav ml-auto">              
+                 
+                  <li class="nav-item"><a class="nav-link js-scroll-trigger" onclick="" href=""  data-toggle="modal" ><button type="button" class="btn btn-link" id="btnCerrarSesion"> Cerrar Sesion</button></a></li>
+                  
+            </ul>
+        </div>
     
     </div>
 </nav>
 
 <br><br><br>
+
+
+
+  <button id="remove" class="btn btn-danger" disabled>Eliminar</button>
+
+
 
 <table class="table table-bordered table-striped" ref="mainTable" id="table" 
 data-toggle="table"
@@ -46,13 +61,14 @@ data-toolbar="#toolbar"
 <th data-field="Pelicula" data-filter-control="input" data-sortable="true">Pelicula</th>
 <th data-field="Categoria" data-filter-control="select" data-sortable="true">Categoria</th>
 <th data-field="Rating" data-filter-control="select" data-sortable="true">Rating</th>
-<th data-field="Fecha" data-sortable="true">Fecha</th>
+<th data-field="Fecha" data-sortable="true " >Fecha</th>
 </tr>
 </thead>
 <tbody>
-<tr>
     {% for c in coleccion %}
-<td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+<tr name="check" id="{{c[5]}}">
+    
+<td class="bs-checkbox " ><input  onclick="myFunction()"   type="checkbox"></td>
 <td>{{c[0]}}</td>
 <td>{{c[1]}}</td>
 <td>{{c[4]}}</td>
@@ -69,30 +85,95 @@ data-toolbar="#toolbar"
 
 
 
+
 <script>
     $('#mainTable').bootstrapTable({
 });
-//OBTENER CATEGORIAS
 
-// $(document).ready(function(){
-//    $.ajax({
-//       type: "GET",
-//       url:'/listarCategorias',
-//       success: function(data) {
-//           console.log(data)
-//       },
-//       error: function(error){
-//       console.log("Here is the error res: " + JSON.stringify(error));
-//       }
-//   });
-// });
 
 
 </script>
+<script>
+    var $table = $('#table')
+    var $button = $('#remove')
+  
+    $(function() {
+      $button.click(function () {
+
+        var pelisborrar = $table.bootstrapTable('getSelections')
+        var cantidad = $table.bootstrapTable('getSelections').length
+        console.log(JSON.stringify($table.bootstrapTable('getSelections')))
+        if(confirm("Estas seguro que deseas borrar "+cantidad+" pelicula/s")){
+            $.ajax({
+            url: '/pelisaborrar',
+            data: JSON.stringify(pelisborrar),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'POST',
+            success: function(response) {                
+                console.log(response)
+                location.reload();
+               
+            },
+            error: function(error) {
+               console.log(error)
+            }
+
+        });
+
+        }
+        
 
 
+        
+      })
+    })  
+
+  </script>
 
 
+<script>
+    var $table = $('#table')
+    var $remove = $('#remove')
+  
+    $(function() {
+      $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+      })
+      $remove.click(function () {
+        var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+          return row.id
+        })
+  
+        $table.bootstrapTable('remove', {
+          field: 'id',
+          values: ids
+        })
+        $remove.prop('disabled', true)
+      })
+    })
+  </script>
+
+<script>
+    //cerrar sesion
+
+$(function() {
+    $('#btnCerrarSesion').click(function() {
+
+        $.ajax({
+            url: '/cerrarSesion',            
+            type: 'POST',
+            success: function(response) {
+                window.location.href="/"
+            },
+            error: function(error) {
+               console.log(error)
+            }
+
+        });
+    });
+});
+</script>
 
   </body>
 </html>

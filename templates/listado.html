@@ -25,6 +25,28 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                  
+              <ul class="navbar-nav ml-auto">
+                
+                  {% if user %}                         
+                 
+
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""  data-toggle="modal" data-target="#menuModal">{{user}}</a></li>
+                     
+                    {%else%}
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""  data-toggle="modal" data-target="#loginModal">LogIn</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""  data-toggle="modal" data-target="#registerModal">Register</a></li>
+
+
+                  {% endif%}
+                  
+                  
+                  <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+                  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li> -->
+              </ul>
+          </div>
+
           </div>
         </nav>
         <!-- {{peliculas}} -->
@@ -133,6 +155,100 @@
 
 
         
+        <!-- MODAL LogIn -->
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form class="form-register">
+              <div class="input-group mb-3">
+                  <input name="usuario" id="usuario" type="text" class="form-control" placeholder="usuario"
+                  aria-describedby="basic-addon1">
+
+              </div>
+              <div class="input-group mb-3">
+                  <input name="contraseña" id="contraseña" type="password" class="form-control" placeholder="contraseña"
+                  aria-describedby="basic-addon2">
+              </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        
+        <button id="btnLogIn" type="button" class="btn btn-primary">LogIn</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL Registro -->
+
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form class="form-register">
+              <div class="input-group mb-3">
+                  <input name="username" id="username" type="text" class="form-control" placeholder="usuario"
+                  aria-describedby="basic-addon1">
+
+              </div>
+              <div class="input-group mb-3">
+                  <input name="pass" id="pass" type="password" class="form-control" placeholder="contraseña"
+                  aria-describedby="basic-addon2">
+              </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        
+        <button id="btnSignUp" type="button" class="btn btn-primary">Registrar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- MENU MODAL -->
+
+
+ <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Menú de usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="display: grid;">
+         
+        <button onclick="window.location.href='/userHome'" type="button" class="btn btn-primary" >
+          Ver perfil
+        </button>
+        
+        
+        <button id="btnCerrarSesion"type="button" class="btn btn-secondary" >
+          Cerrar Sesión
+        </button>
+
+      </div>
+ 
+    </div>
+  </div>
+</div>
 
 
 
@@ -227,43 +343,94 @@ fetch("https://api.themoviedb.org/3/movie/"+idPelicula+"?api_key=6427e11274426be
     document.getElementById("descripcion").innerHTML = data.overview;
     document.getElementById("idPelicula").innerHTML = idPelicula;
     
-    $('#exampleModalCenter').modal('show');
-  
-  // if(opt == 2){  //  2 - Añadir a la coleccion
-  //   console.log("id pelicula:" + idPelicula)
-  //   $.ajax({
-  //           url: '/coleccion',
-  //           data: idPelicula,
-  //           type: 'POST',
-  //           success: function(response) {
-  //             alert(response)
-             
-  //           },
-  //           error: function(error) {
-  //              console.log(error)
-  //           }
+    $('#exampleModalCenter').modal('show'); 
 
-  //       });
-
-  // }
  
 })
+  
+}</script>
 
-
-
+<script>
+  $(function() {
+    $('#btnLogIn').click(function() {
+      if ($("#contraseña").val()=="" || $("#usuario").val()==""){
+        alert("Todos los campos son obligatorios")
+      }else{
 
       
+        $.ajax({
+            url: '/validarRegistro',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+              if (response == ""){
+                alert("Usuario y/o Contraseña incorrecto")
+              }else{
+                location.reload();
+              }
+              
+            },
+            error: function(error) {
+               console.log(error)
+            }
 
-     
-     
-      // $(e.currentTarget).find('#lista').val(id);
-
-  
-}
-
-
-
-
-
+        });
+      }
+    });
+});
 </script>
+
+<script>
+  //cerrar sesion
+
+$(function() {
+    $('#btnCerrarSesion').click(function() {
+
+        $.ajax({
+            url: '/cerrarSesion',            
+            type: 'POST',
+            success: function(response) {
+              location.reload();
+            },
+            error: function(error) {
+               console.log(error)
+            }
+
+        });
+    });
+});
+</script>
+
+<script>
+  $(function() {
+    $('#btnSignUp').click(function(e) {
+
+      if ($("#pass").val()=="" || $("#username").val()==""){
+        alert("Todos los campos son obligatorios")
+      }else{
+
+        $.ajax({
+            url: '/registro',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+              
+              if(response == "1"){
+                alert("El usuario ya se encuentra registrado")
+              }else{
+                alert("Usuario creado con exito")
+                $('#registerModal').modal('hide');
+              }
+               
+            },
+            error: function(error) {
+               console.log(error)
+            }
+
+        });
+      }
+    });
+});
+</script>
+
 </html>

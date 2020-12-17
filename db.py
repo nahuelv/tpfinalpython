@@ -83,7 +83,7 @@ def buscarPersona(name):
 def listarColeccion (idUsuarioLogeado):
     con = conexion()
     c = con.cursor()
-    query = "SELECT co.id,co.nombre as Pelicula,co.puntuacion,co.fecha, ca.nombre as Categoria FROM Coleccion co inner join Categorias ca on ca.idCategoria = co.idCategoria WHERE idUsuario = ?"
+    query = "SELECT co.id,co.nombre as Pelicula,co.puntuacion,co.fecha, ca.nombre as Categoria, co.idPelicula FROM Coleccion co inner join Categorias ca on ca.idCategoria = co.idCategoria WHERE idUsuario = ?"
 
     result = c.execute(query, (idUsuarioLogeado,))
 
@@ -99,6 +99,17 @@ def agregar_a_coleccion (idUsuarioLogeado,idPelicula,categoria,titulo,rating):
     query = "INSERT INTO Coleccion (idUsuario, idPelicula,idCategoria,nombre,puntuacion,fecha) VALUES (?,?,?,?,?,?)"
     datos = (idUsuarioLogeado, idPelicula, categoria, titulo, rating,
              date.today())
+    c.execute(query, datos)
+    c.close()
+    con.commit()
+    con.close()
+    return ""
+
+def borrar_pelicula_en_coleccion(idUsuario,idPelicula):
+    con = conexion()
+    c = con.cursor()
+    query = "DELETE  FROM Coleccion WHERE idUsuario = ? AND idPelicula = ?"
+    datos = (idUsuario, idPelicula)
     c.execute(query, datos)
     c.close()
     con.commit()

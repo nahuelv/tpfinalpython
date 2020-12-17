@@ -140,6 +140,16 @@ def listarCategorias():
     categorias = obtener_categorias()
     return jsonify(categorias)
 
+@app.route('/pelisaborrar' , methods=['GET', 'POST'])
+def pelisaborrar():
+    if request.method == 'POST':
+        global idUsuarioLogeado
+        peliculas = request.get_json()
+        for p in peliculas:
+            borrar_pelicula_en_coleccion(idUsuarioLogeado,p['_id'])
+
+
+    return jsonify(peliculas)
 
 if __name__ == "__main__":
     app.run(debug=True)
